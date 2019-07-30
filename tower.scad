@@ -58,36 +58,6 @@ intersection() {
         translate([0, 0, outer_wall_height - top_wall_conjunction_height]) wall(top_wall_conjunction_height, outer_top_radius = top_wall_radius);
         translate([0, 0, outer_wall_height]) wall(wall_layer_height, bricks_gap = top_wall_layer_gap, outer_radius = top_wall_radius, brick_count = top_wall_brick_count);
 
-        difference() {
-            union() {
-                for (i = [4:rocks_count-1])
-                    rotate([0, 0, i * rock_angle - 90]) translate([tower_radius + rock_offset, 0, 0]) rock(i);
-                scale([1, 1, 0.95]) rotate([0, 0, 3 * rock_angle - 90]) translate([tower_radius + rock_offset, 0, 0]) rock(3);
-                scale([1, 1, 0.95]) rotate([0, 0, rocks_count * rock_angle - 90]) translate([tower_radius + rock_offset, 0, 0]) rock(rocks_count);
-                scale([1, 1, 0.9]) rotate([0, 0, 2 * rock_angle - 90]) translate([tower_radius + rock_offset, 0, 0]) rock(2);
-                scale([1, 1, 0.9]) rotate([0, 0, (rocks_count + 1) * rock_angle - 90]) translate([tower_radius + rock_offset, 0, 0]) rock(rocks_count + 1);
-                translate([0, -tower_radius * 2, 0]) mirror([0, 1, 0]) {
-                    for (i = [5:outer_rocks_count - 2])
-                        scale([1, 1, 0.7]) rotate([0, 0, i * outer_rock_angle - 90]) translate([tower_radius + outer_rock_offset, 0, 0]) rock(i * 2);
-                    scale([1, 1, 0.75]) rotate([0, 0, 4 * outer_rock_angle - 90]) translate([tower_radius + outer_rock_offset, 0, 0]) rock(4 * 2);
-                    scale([1, 1, 0.75]) rotate([0, 0, (outer_rocks_count - 1) * outer_rock_angle - 90]) translate([tower_radius + outer_rock_offset, 0, 0]) rock((outer_rocks_count - 1) * 2);
-                    scale([1, 1, 0.8]) rotate([0, 0, 3 * outer_rock_angle - 90]) translate([tower_radius + outer_rock_offset, 0, 0]) rock(2);
-                    scale([1, 1, 0.8]) rotate([0, 0, outer_rocks_count * outer_rock_angle - 90]) translate([tower_radius + outer_rock_offset, 0, 0]) rock((outer_rocks_count + 1) * 2);
-                    scale([1, 1, 0.85]) rotate([0, 0, 2 * outer_rock_angle - 90]) translate([tower_radius + outer_rock_offset, 0, 0]) rock(6);
-                    scale([1, 1, 0.85]) rotate([0, 0, (outer_rocks_count + 1) * outer_rock_angle - 90]) translate([tower_radius + outer_rock_offset, 0, 0]) rock(outer_rocks_count * 2);
-                }
-            }
-            cylinder(r = tower_radius, h = outer_wall_height, $fn = spiral_details);
-        }
-
-        translate([0, 0, -bottom_thickness]) cylinder(r = tower_radius + rock_offset, h = bottom_thickness, $fn = spiral_details);
-        difference() {
-            translate([0, -tower_radius * 2, -bottom_thickness]) cylinder(r = outer_bottom_radius, h = bottom_thickness, $fn = spiral_details);
-            for (i = [-outer_bottom_radius:outer_bottom_deeping_step:outer_bottom_radius]) {
-                translate([-outer_bottom_radius, -tower_radius * 2 + i, -outer_bottom_deeping]) cube([outer_bottom_radius * 2, outer_bottom_deeping, outer_bottom_deeping]);
-                translate([i, -tower_radius * 2 - outer_bottom_radius, -outer_bottom_deeping]) rotate([0, 0, 90]) cube([outer_bottom_radius * 2, outer_bottom_deeping, outer_bottom_deeping]);
-            }
-        }
     }
     translate([-500, -500, -bottom_thickness]) cube([1000, 1000, 1000]);
 }
